@@ -43,18 +43,49 @@
 
 <div class="container mt-5" id="camera-container">
     <form id="capture-form">
+        <!-- Número da Ordem de Serviço -->
         <div class="form-group">
             <label for="name">N° Ordem de Serviço:</label>
             <input type="text" class="form-control" required>
         </div>
+        <!--  -->
+
+        <!-- Código da Ligação do Cliente -->
         <div class="form-group">
             <label for="email">Código Ligação:</label>
             <input type="text" class="form-control" required>
         </div>
+        <!--  -->
+
+        <!-- Imagem Testada -->
         <div class="form-group">
-            <label for="email">Imagens Capturadas:</label>
-            <div class="captured-images" id="captured-images"></div>
+            <label for="captured-images-testada">Testada:</label>
+            <div class="captured-images" id="captured-images-testada"></div>
         </div>
+        <!--  -->
+
+        <!-- Hidrometro Retirado -->
+        <div class="form-group">
+            <label for="email">Hidrometro Retirado:</label>
+            <div class="captured-images" id="captured-images-hidrometro-retirado"></div>
+        </div>
+        <!--  -->
+
+        <!-- Hidrometro Novo -->
+        <div class="form-group">
+            <label for="email">Hidrometro Novo:</label>
+            <div class="captured-images" id="captured-images-hidrometro-novo"></div>
+        </div>
+        <!--  -->
+
+        <!-- Cavalete -->
+        <div class="form-group">
+            <label for="email">Cavalete:</label>
+            <div class="captured-images" id="captured-images-cavalete"></div>
+        </div>
+        <!--  -->
+
+
         <div class="form-group">
             <video id="video" hidden></video>
             <button id="ativar" class="btn btn-info mt-3">Ligar Câmera</button>
@@ -68,92 +99,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    $(document).ready(function() {
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const captureButton = document.getElementById('capture');
-        const form = document.getElementById('capture-form');
-        const capturedImagesDiv = document.getElementById('captured-images');
-
-        let cameraStarted = false;
-        let capturesCount = 0;
-
-        // Inicia a câmera quando clicar no botão de ativar
-        $('#ativar').on('click', function() {
-
-            $("#video").removeAttr('hidden');
-            $("#capture").removeAttr('hidden');
-            
-
-
-            setTimeout(function() {
-                if (!cameraStarted) {
-                    startCamera();
-                    cameraStarted = true;
-                }
-
-                
-            }, 500);
-        });
-    
-        function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                .then(stream => {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(err => {
-                    console.error("Erro ao acessar a câmera: ", err);
-                });
-        }
-
-        // Captura a foto e exibe abaixo do formulário
-        captureButton.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            const dataURL = canvas.toDataURL('image/png');
-            const image = new Image();
-            image.src = dataURL;
-            image.className = 'preview-image';
-            capturedImagesDiv.appendChild(image);
-
-            capturesCount++;
-
-            if (capturesCount === 3) {
-                stopCamera();
-            }
-        });
-
-        // Desliga a câmera
-        function stopCamera() {
-            const stream = video.srcObject;
-            const tracks = stream.getTracks();
-
-            tracks.forEach(function(track) {
-                track.stop();
-            });
-
-            video.srcObject = null;
-            cameraStarted = false;
-            $('#ativar').prop('disabled', true); // Desabilita o botão de ativar
-            $('#capture').attr('hidden', true);
-            $('#video').attr('hidden', true);
-        }
-
-
-        $('#capture-form').submit(function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-        });
-    });
-    $(document).on('click', '#sendsend', function() {
-        alert('Registro Salvo Com Sucesso')
-        location.reload()
-    })
-</script>
+<script type="module" src="./main.js"></script>
 
 </body>
 </html>
