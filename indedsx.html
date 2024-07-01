@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="./src/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="./src/assets/css/styles.min.css" />
+  <style>
+    #camera-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #video {
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+
+    #canvas {
+      display: none;
+    }
+
+    .preview-image {
+      max-width: 100px;
+      max-height: 100px;
+      margin-top: 10px;
+    }
+
+    .captured-images {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .captured-images img {
+      max-width: 100px;
+      max-height: 100px;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="./index.html" class="text-nowrap logo-img">
+            <img src="./src/assets/images/logos/dark-logo.svg" width="180" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+
+      <!--  Header End -->
+      <div class="container-fluid">
+        <form id="capture-form">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">N° Ordem de Serviço</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="N° Ordem de Serviço">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Código Ligação do Cliente</label>
+            <input type="password" class="form-control" id="exampleInputPassword1"
+              placeholder="Código Ligação do Cliente">
+          </div>
+          <div class="form-group">
+            <label for="email">Imagens Capturadas:</label>
+            <div class="captured-images" id="captured-images"></div>
+          </div>
+          <div class="form-group" id="cam">
+            <video id="video" hidden></video>
+            <button id="ativar" class="btn btn-info mt-3">Ligar Câmera</button>
+            <button id="capture" class="btn btn-primary mt-3" hidden>Capturar Imagem</button>
+          </div>
+          <div class="form-group">
+            <canvas id="canvas"></canvas>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="./src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./src/assets/js/sidebarmenu.js"></script>
+  <script src="./src/assets/js/app.min.js"></script>
+  <script src="./src/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script>
+    $(document).ready(function () {
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const captureButton = document.getElementById('capture');
+      const form = document.getElementById('capture-form');
+      const capturedImagesDiv = document.getElementById('captured-images');
+
+      let cameraStarted = false;
+      let capturesCount = 0;
+
+      // Inicia a câmera quando clicar no botão de ativar
+      $('#ativar').on('click', function () {
+
+        $("#video").removeAttr('hidden');
+        $("#capture").removeAttr('hidden');
+
+
+
+        setTimeout(function () {
+          if (!cameraStarted) {
+            startCamera();
+            cameraStarted = true;
+          }
+
+          $('#ativar').attr('hidden', true);
+        }, 500);
+      });
+
+      function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+          .then(stream => {
+            video.srcObject = stream;
+            video.play();
+          })
+          .catch(err => {
+            console.error("Erro ao acessar a câmera: ", err);
+          });
+      }
+
+      // Captura a foto e exibe abaixo do formulário
+      captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const dataURL = canvas.toDataURL('image/png');
+        const image = new Image();
+        image.src = dataURL;
+        image.className = 'preview-image';
+        capturedImagesDiv.appendChild(image);
+
+        capturesCount++;
+
+        if (capturesCount === 3) {
+          stopCamera();
+        }
+      });
+
+      // Desliga a câmera
+      function stopCamera() {
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach(function (track) {
+          track.stop();
+        });
+
+        video.srcObject = null;
+        cameraStarted = false;
+        $('#ativar').prop('disabled', true); // Desabilita o botão de ativar
+        $('#capture').attr('hidden', true);
+        $('#video').attr('hidden', true);
+      }
+
+      // Envio dos dados do formulário e imagens por AJAX
+      form.addEventListener('submit', function (event) {
+        alert('Registro Salvo com Sucesso')
+
+      });
+    });
+  </script>
+
+</body>
+
+</html>
+<script>
+  const formData = new FormData(this);
+
+  // Adiciona as imagens capturadas ao FormData
+  const images = capturedImagesDiv.querySelectorAll('img');
+  images.forEach((img, index) => {
+      formData.append(`photo${index + 1}`, img.src);
+  });
+
+  $.ajax({
+      url: 'seu_endpoint_de_requisicao',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+          alert('Dados e imagens enviados com sucesso!');
+          // Aqui você pode lidar com a resposta do servidor, se necessário
+      },
+      error: function(xhr, status, error) {
+          console.error('Erro ao enviar dados e imagens:', error);
+          // Trate o erro de acordo com sua necessidade
+      }
+  });
+</script>
