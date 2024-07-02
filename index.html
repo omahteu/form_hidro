@@ -13,13 +13,11 @@
             align-items: center;
             flex-direction: column;
         }
-        #video {
+        .video-section {
             width: 100%;
             max-width: 600px;
             border: 1px solid #ddd;
             margin-bottom: 10px;
-        }
-        #canvas {
             display: none;
         }
         .preview-image {
@@ -63,9 +61,9 @@
             <div class="captured-images" id="captured-images-testada"></div>
         </div>
         <div class="form-group">
-            <video id="video-testada" hidden></video>
-            <button class="btn btn-info mt-3 btn-ativar" data-section="testada">Ligar Câmera</button>
-            <button class="btn btn-primary mt-3 btn-capture" id="capture-testada" hidden>Capturar Imagem</button>
+            <video id="video-testada" class="video-section"></video>
+            <button type="button" class="btn btn-info mt-3 btn-ativar" data-section="testada">Ligar Câmera</button>
+            <button type="button" class="btn btn-primary mt-3 btn-capture" id="capture-testada" hidden>Capturar Imagem</button>
         </div>
         <div class="form-group">
             <canvas id="canvas-testada"></canvas>
@@ -78,9 +76,9 @@
             <div class="captured-images" id="captured-images-hidrometro-retirado"></div>
         </div>
         <div class="form-group">
-            <video id="video-hidrometro-retirado" hidden></video>
-            <button class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-retirado">Ligar Câmera</button>
-            <button class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-retirado" hidden>Capturar Imagem</button>
+            <video id="video-hidrometro-retirado" class="video-section"></video>
+            <button type="button" class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-retirado">Ligar Câmera</button>
+            <button type="button" class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-retirado" hidden>Capturar Imagem</button>
         </div>
         <div class="form-group">
             <canvas id="canvas-hidrometro-retirado"></canvas>
@@ -93,9 +91,9 @@
             <div class="captured-images" id="captured-images-hidrometro-novo"></div>
         </div>
         <div class="form-group">
-            <video id="video-hidrometro-novo" hidden></video>
-            <button class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-novo">Ligar Câmera</button>
-            <button class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-novo" hidden>Capturar Imagem</button>
+            <video id="video-hidrometro-novo" class="video-section"></video>
+            <button type="button" class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-novo">Ligar Câmera</button>
+            <button type="button" class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-novo" hidden>Capturar Imagem</button>
         </div>
         <div class="form-group">
             <canvas id="canvas-hidrometro-novo"></canvas>
@@ -108,9 +106,9 @@
             <div class="captured-images" id="captured-images-cavalete"></div>
         </div>
         <div class="form-group">
-            <video id="video-cavalete" hidden></video>
-            <button class="btn btn-info mt-3 btn-ativar" data-section="cavalete">Ligar Câmera</button>
-            <button class="btn btn-primary mt-3 btn-capture" id="capture-cavalete" hidden>Capturar Imagem</button>
+            <video id="video-cavalete" class="video-section"></video>
+            <button type="button" class="btn btn-info mt-3 btn-ativar" data-section="cavalete">Ligar Câmera</button>
+            <button type="button" class="btn btn-primary mt-3 btn-capture" id="capture-cavalete" hidden>Capturar Imagem</button>
         </div>
         <div class="form-group">
             <canvas id="canvas-cavalete"></canvas>
