@@ -6,10 +6,12 @@ $(document).ready(function () {
         const canvas = document.getElementById(`canvas-${section}`);
         const captureButton = document.getElementById(`capture-${section}`);
         const capturedImagesDiv = document.getElementById(`captured-images-${section}`);
+        const activateButton = $(`button[data-section="${section}"]`);
 
-        $(`button[data-section="${section}"]`).on('click', function () {
+        activateButton.on('click', function () {
             $(video).show();
-            $(captureButton).show();
+            $(captureButton).removeAttr('hidden');
+            activateButton.hide();
             startCamera(video);
         });
 
@@ -23,10 +25,12 @@ $(document).ready(function () {
             const image = new Image();
             image.src = dataURL;
             image.className = 'preview-image';
+            capturedImagesDiv.innerHTML = '';  // Clear previous images
             capturedImagesDiv.appendChild(image);
 
             stopCamera(video);
             $(captureButton).hide();
+            $(canvas).hide();
         });
     });
 
@@ -50,6 +54,7 @@ $(document).ready(function () {
         });
 
         video.srcObject = null;
+        $(video).hide();
     }
 
     $('#capture-form').submit(function (event) {
@@ -57,7 +62,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#sendsend', function () {
-        alert('Registro Salvo Com Sucesso')
-        location.reload()
+        alert('Registro Salvo Com Sucesso');
+        location.reload();
     });
 });
