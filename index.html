@@ -62,12 +62,28 @@
             <label for="captured-images-testada">Testada:</label>
             <div class="captured-images" id="captured-images-testada"></div>
         </div>
+        <div class="form-group">
+            <video id="video-testada" hidden></video>
+            <button class="btn btn-info mt-3 btn-ativar" data-section="testada">Ligar Câmera</button>
+            <button class="btn btn-primary mt-3 btn-capture" id="capture-testada" hidden>Capturar Imagem</button>
+        </div>
+        <div class="form-group">
+            <canvas id="canvas-testada"></canvas>
+        </div>
         <!--  -->
 
         <!-- Hidrometro Retirado -->
         <div class="form-group">
             <label for="email">Hidrometro Retirado:</label>
             <div class="captured-images" id="captured-images-hidrometro-retirado"></div>
+        </div>
+        <div class="form-group">
+            <video id="video-hidrometro-retirado" hidden></video>
+            <button class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-retirado">Ligar Câmera</button>
+            <button class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-retirado" hidden>Capturar Imagem</button>
+        </div>
+        <div class="form-group">
+            <canvas id="canvas-hidrometro-retirado"></canvas>
         </div>
         <!--  -->
 
@@ -76,6 +92,14 @@
             <label for="email">Hidrometro Novo:</label>
             <div class="captured-images" id="captured-images-hidrometro-novo"></div>
         </div>
+        <div class="form-group">
+            <video id="video-hidrometro-novo" hidden></video>
+            <button class="btn btn-info mt-3 btn-ativar" data-section="hidrometro-novo">Ligar Câmera</button>
+            <button class="btn btn-primary mt-3 btn-capture" id="capture-hidrometro-novo" hidden>Capturar Imagem</button>
+        </div>
+        <div class="form-group">
+            <canvas id="canvas-hidrometro-novo"></canvas>
+        </div>
         <!--  -->
 
         <!-- Cavalete -->
@@ -83,17 +107,16 @@
             <label for="email">Cavalete:</label>
             <div class="captured-images" id="captured-images-cavalete"></div>
         </div>
+        <div class="form-group">
+            <video id="video-cavalete" hidden></video>
+            <button class="btn btn-info mt-3 btn-ativar" data-section="cavalete">Ligar Câmera</button>
+            <button class="btn btn-primary mt-3 btn-capture" id="capture-cavalete" hidden>Capturar Imagem</button>
+        </div>
+        <div class="form-group">
+            <canvas id="canvas-cavalete"></canvas>
+        </div>
         <!--  -->
 
-
-        <div class="form-group">
-            <video id="video" hidden></video>
-            <button id="ativar" class="btn btn-info mt-3">Ligar Câmera</button>
-            <button id="capture" class="btn btn-primary mt-3" hidden>Capturar Imagem</button>
-        </div>
-        <div class="form-group">
-            <canvas id="canvas"></canvas>
-        </div>
         <button type="button" class="btn btn-success" id="sendsend">Salvar</button>
     </form>
 </div>
