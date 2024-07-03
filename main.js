@@ -11,7 +11,7 @@ $(document).ready(function () {
         activateButton.on('click', function () {
             $(video).show();
             $(captureButton).removeAttr('hidden');
-            activateButton.hide();
+            activateButton.prop('hidden', true);
             startCamera(video);
         });
 
@@ -29,10 +29,20 @@ $(document).ready(function () {
             capturedImagesDiv.appendChild(image);
 
             stopCamera(video);
-            $(captureButton).hide();
+            $(captureButton).prop('hidden', true);
             $(canvas).hide();
+            $("#nova-testada").prop('hidden', false);
+            
         });
+
     });
+
+    $(document).on("click", "#nova-testada", function() {
+        const quadro = $(`#captured-images-testada`)
+        quadro.empty()
+        $(`button[data-section="testada"]`).removeAttr('hidden');
+        $("#nova-testada").prop('hidden', true);
+    })
 
     function startCamera(video) {
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
