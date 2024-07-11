@@ -31,7 +31,10 @@ $(document).ready(function () {
             stopCamera(video);
             $(captureButton).prop('hidden', true);
             $(canvas).hide();
-            $("#nova-testada").prop('hidden', false);
+
+            $(`#nova-${section}`).prop('hidden', false);
+            // $("#nova-testada").prop('hidden', false);
+            // $("#nova-hidrometro-retirado").prop('hidden', false);
             
         });
 
@@ -42,6 +45,27 @@ $(document).ready(function () {
         quadro.empty()
         $(`button[data-section="testada"]`).removeAttr('hidden');
         $("#nova-testada").prop('hidden', true);
+    })
+
+    $(document).on("click", "#nova-hidrometro-retirado", function() {
+        const quadro = $(`#captured-images-hidrometro-retirado`)
+        quadro.empty()
+        $(`button[data-section="hidrometro-retirado"]`).removeAttr('hidden');
+        $("#nova-hidrometro-retirado").prop('hidden', true);
+    })
+
+    $(document).on("click", "#nova-hidrometro-novo", function() {
+        const quadro = $(`#captured-images-hidrometro-novo`)
+        quadro.empty()
+        $(`button[data-section="hidrometro-novo"]`).removeAttr('hidden');
+        $("#nova-hidrometro-novo").prop('hidden', true);
+    })
+
+    $(document).on("click", "#nova-cavalete", function() {
+        const quadro = $(`#captured-images-cavalete`)
+        quadro.empty()
+        $(`button[data-section="cavalete"]`).removeAttr('hidden');
+        $("#nova-cavalete").prop('hidden', true);
     })
 
     function startCamera(video) {
