@@ -60,18 +60,18 @@
     </div>
 
     <div id="camera-container">
-        <form id="capture-form">
+        <form id="capture-form" method="post" action="./src/php/create.php">
             <!-- Número da Ordem de Serviço -->
             <div class="form-group">
                 <label for="name">N° Ordem de Serviço:</label>
-                <input type="text" class="form-control" maxlength="8" required>
+                <input type="text" class="form-control" name="os" maxlength="8" required>
             </div>
             <!--  -->
 
             <!-- Código da Ligação do Cliente -->
             <div class="form-group">
                 <label for="email">Código Ligação:</label>
-                <input type="text" class="form-control" maxlength="8" required>
+                <input type="text" class="form-control" name="codigo" maxlength="8" required>
             </div>
             <!--  -->
 
@@ -79,6 +79,7 @@
             <div class="form-group">
                 <label for="captured-images-testada">Testada:</label>
                 <div class="captured-images" id="captured-images-testada"></div>
+                <input type="file" name="testada" id="input-testada" style="display: none;">
             </div>
             <div class="form-group">
                 <video id="video-testada" class="video-section"></video>
@@ -95,6 +96,7 @@
             <div class="form-group">
                 <label for="email">Hidrometro Retirado:</label>
                 <div class="captured-images" id="captured-images-hidrometro-retirado"></div>
+                <input type="file" name="hretirado" id="input-hidrometro-retirado" style="display: none;">
             </div>
             <div class="form-group">
                 <video id="video-hidrometro-retirado" class="video-section"></video>
@@ -111,6 +113,7 @@
             <div class="form-group">
                 <label for="email">Hidrometro Novo:</label>
                 <div class="captured-images" id="captured-images-hidrometro-novo"></div>
+                <input type="file" name="hnovo" id="input-hidrometro-novo" style="display: none;">
             </div>
             <div class="form-group">
                 <video id="video-hidrometro-novo" class="video-section"></video>
@@ -127,6 +130,7 @@
             <div class="form-group">
                 <label for="email">Cavalete:</label>
                 <div class="captured-images" id="captured-images-cavalete"></div>
+                <input type="file" name="cavalete" id="input-cavalete" style="display: none;">
             </div>
             <div class="form-group">
                 <video id="video-cavalete" class="video-section"></video>
@@ -139,7 +143,7 @@
             </div>
             <!--  -->
 
-            <button type="button" class="btn btn-success" id="sendsend">Salvar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
         </form>
     </div>
 </div>
